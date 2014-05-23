@@ -17,21 +17,22 @@ if [ $# -ne 2 ]; then
 fi
 VERSION=$2
 REPO_URL="http://btrp.inria.fr/repos"
-APIDOC_URL="http://btrp.inria.fr/solver/${VERSION}"
-
+ARTIFACT_ID="executor"
+REPO_NAME="btrplace-${ARTIFACT_ID}"
+APIDOC_URL="http://btrp.inria.fr/${ARTIFACT_ID}/${VERSION}"
 case $1	in
 
 site)	
 	WWW_HOOK="http://btrp.inria.fr/admin/bump_release.php"
 
 	JSON="{\"version\":\"$VERSION\",\	
-	\"title\":\"solver\",\
+	\"title\":\"executor\",\
 	\"apidoc\":\"$APIDOC_URL\",\
-	\"changelog\":\"https://github.com/fhermeni/btrplace-solver/tree/btrplace-solver-$VERSION/CHANGES.md\",\
-	\"binary\":\"$REPO_URL/releases/btrplace/solver-bundle/$VERSION/solver-bundle-$VERSION.jar\",\
-	\"sources\":\"https://github.com/fhermeni/btrplace-solver/tree/btrplace-solver-$VERSION\"
+	\"changelog\":\"https://github.com/fhermeni/btrplace-${ARTIFACT_ID}/tree/btrplace-${ARTIFACT_ID}-$VERSION/CHANGES.md\",\
+	\"binary\":\"$REPO_URL/releases/btrplace/btrplace-${ARTIFACT_ID}/$VERSION/btrplace-${ARTIFACT_ID}-$VERSION.jar\",\
+	\"sources\":\"https://github.com/fhermeni/btrplace-${ARTIFACT_ID}/tree/btrplace-${ARTIFACT_ID}-$VERSION\"
 	}"
-	curl -X POST --data "data=$JSON" ${WWW_HOOK}
+	curl -X POST --data "data=$JSON" $WWW_HOOK
 	;;
 code)
 
@@ -44,7 +45,8 @@ code)
 	d=`LANG=en_US.utf8 date +"%d %b %Y"`
 	REGEX="s%????*%${VERSION} - ${d}%"	
 	sedInPlace "${REGEX}" CHANGES.md
-    ;;
+	;;
+
 *)
 		echo "Target must be either 'site' or 'code'"
 		exit 1
