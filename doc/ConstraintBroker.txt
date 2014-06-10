@@ -1,0 +1,40 @@
+## ConstraintBroker API
+submit(double at, String id, List<Object> params) : CstrStatus
+submitNow(String id, List<Object> params) : CstrStatus
+revoke(double at, int id) : CstrStatus
+revokeNow(int id) : CstrStatushh
+getStatus(int id) : CstrStatus
+
+
+CstrStatus {
+	int id:
+	Status {invalid, pending, satisfied, violated}
+	history: List< (int, Status)>
+	getCurrentStatus()
+	setCurrentStatus(Status)
+}
+
+ackSubmission(
+	id
+	status: ok, ko
+)
+
+Events:
+	- cstr_submit :: [int brokerId, int cId, String cName, List<Object> params]
+	- cstr_revoke :: [int brokerId, int cId]
+
+BtrpDatacenter:
+ -> converter btw cstr event and btrp constraints
+
+on submit_ack:
+	if (!convert) {
+		reject
+	}
+	if (satisfied) {
+		ok
+	}
+	append()
+
+solve () {
+	send ok | ko
+}

@@ -33,6 +33,11 @@
             <version>0.38.1</version>
         </dependency>
         <dependency>
+            <groupId>btrplace</groupId>
+            <artifactId>solver-choco</artifactId>
+            <version>0.38.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.8.7</version>
@@ -49,6 +54,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cloudbus.cloudsim</groupId>
+            <artifactId>cloudsim-toolkit</artifactId>
+            <version>3.0.3-fh</version>
         </dependency>
     </dependencies>
 
